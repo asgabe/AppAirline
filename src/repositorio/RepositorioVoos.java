@@ -38,13 +38,13 @@ public class RepositorioVoos {
         if (vooExiste(horario.getHorario())) {
             return false;
         }
-        
+
         return (listaVoos.add(horario));
     }
 
     public List<Voo> getHorarios() {
         Collections.sort(listaVoos);
-        
+
         return listaVoos;
     }
 
@@ -54,7 +54,16 @@ public class RepositorioVoos {
                 return hora;
             }
         }
-        
+
         return null;
+    }
+
+    public boolean hasAssentos() {
+        for (Voo assento : listaVoos) {
+            if (assento.getAviao().getQtdAssento() > 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

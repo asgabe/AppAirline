@@ -21,6 +21,10 @@ public class Aviao {
         return nome;
     }
     
+    public void atualizaAssentos() {
+        qtdAssento = qtdAssento - 1; 
+    }
+    
     public int getQtdAssento() {
         return qtdAssento;
     }

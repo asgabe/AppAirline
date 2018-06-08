@@ -25,6 +25,8 @@ public class RepositorioVendas {
     }
     
     public boolean add(Venda venda) {
+        venda.getVoo().getAviao().atualizaAssentos();
+        
         return (vendas.add(venda));
     }
     
