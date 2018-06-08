@@ -1,7 +1,8 @@
 package repositorio;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
+
 
 import model.Venda;
 
@@ -25,5 +26,9 @@ public class RepositorioVendas {
     
     public boolean add(Venda venda) {
         return (vendas.add(venda));
+    }
+    
+    public List<Venda> getVendas() {
+        return vendas;
     }
 }

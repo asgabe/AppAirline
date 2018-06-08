@@ -48,7 +48,7 @@ public class RepositorioVoos {
         return listaVoos;
     }
 
-    public Voo buscarHorarioVoo(LocalDateTime horario) {
+    public Voo buscarVoo(LocalDateTime horario) {
         for (Voo hora : listaVoos) {
             if (hora.getHorario().equals(horario)) {
                 return hora;

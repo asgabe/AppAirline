@@ -14,13 +14,13 @@ import repositorio.RepositorioAvioes;
 public class VooUI {
 
     public void executar() {
-        
+
         int opcao = 0;
-        
+
         do {
             System.out.println(VooMenu.getOpcoes());
             opcao = Console.scanInt("Digite sua opção:");
-            
+
             switch (opcao) {
                 case VooMenu.OP_NOVO:
                     cadastrarVoo();
@@ -79,13 +79,14 @@ public class VooUI {
             System.out.println("Nao ha horarios cadastrados");
             System.out.println("-----------------------------\n");
         } else {
-            System.out.println("Horarios:");
-            System.out.println("-----------------");
-            
+            System.out.println("HORARIOS:");
+            System.out.println("-----------------------------\n");
+            System.out.println(String.format("%-20s", "DATA/HORA") + "\t"
+                    + String.format("%-20s", "|NOME"));
+
             for (Voo horario : RepositorioVoos.getInstance().getHorarios()) {
-                System.out.println(DateTimeUtil.dateTimeToString(horario.getHorario())
-                        + " -> " + horario.getAviao().getNome());
-                System.out.println("-----------------");
+                System.out.println(String.format("%-20s", DateTimeUtil.dateTimeToString(horario.getHorario()))
+                        + "\t" + String.format("%-20s", horario.getAviao().getNome()));
             }
         }
     }

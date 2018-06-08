@@ -7,12 +7,12 @@ public class Venda {
     private static int CODIGO_GERADO = 1;
 
     private int codigo;
-    private LocalDate data;
+    private String data;
 
     private Cliente cliente;
     private Voo voo;
 
-    public Venda(Cliente cliente, Voo voo, LocalDate data) {
+    public Venda(Cliente cliente, Voo voo, String data) {
         this.cliente = cliente;
         this.voo = voo;
         this.data = data;
@@ -27,7 +27,7 @@ public class Venda {
         return codigo;
     }
 
-    public LocalDate getData() {
+    public String getData() {
         return data;
     }
 
