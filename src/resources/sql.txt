@@ -1,0 +1,11 @@
+create table cleinte (
+id serial primary key,
+rg varchar(30),
+nome varchar(30),
+telefone varchar(30)
+);
+
+DELETE FROM cliente;
+ALTER SEQUENCE cliente_id_seq RESTART WITH 1;
+
+SELECT * FROM cliente;
