@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import br.com.senacrs.air.dominio.Cliente;
 import br.com.senacrs.air.dao.ClienteDao;
-import java.sql.Date;
-import java.time.LocalDate;
 
 public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
 
@@ -16,7 +14,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
         int id = 0;
 
         try {
-            String sql = "INSERT INTO cliente (rg, nome, telefone) "
+            String sql = "INSERT INTO CLIENTE (rg, nome, telefone) "
                     + "VALUES (?,?,?)";
 
             conectarObtendoId(sql);
@@ -64,7 +62,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
     @Override
     public void atualizar(Cliente cliente) {
         try {
-            String sql = "UPDATE cliente SET rg=?, nome=?, datanascimento=? "
+            String sql = "UPDATE CLIENTE SET rg=?, nome=?, telefone=? "
                     + "WHERE id=?";
 
             conectar(sql);
@@ -86,7 +84,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
     public List<Cliente> listar() {
         List<Cliente> listaClientes = new ArrayList<>();
 
-        String sql = "SELECT * FROM cliente";
+        String sql = "SELECT * FROM CLIENTE";
 
         try {
             conectar(sql);
@@ -95,12 +93,12 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
+                String rg = resultado.getString("rg"); 
                 String nome = resultado.getString("nome");
-                String rg = resultado.getString("rg");
                 String telefone = resultado.getString("telefone");
 
-                Cliente pac = new Cliente(id, nome, rg, telefone);
-                listaClientes.add(pac);
+                Cliente cli = new Cliente(id, rg, nome, telefone);
+                listaClientes.add(cli);
 
             }
         } catch (SQLException ex) {
@@ -145,7 +143,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
 
     @Override
     public Cliente procurarPorRg(String rg) {
-        String sql = "SELECT * FROM cliente WHERE rg = ?";
+        String sql = "SELECT * FROM CLIENTE WHERE rg = ?";
 
         try {
             conectar(sql);
@@ -158,9 +156,9 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
                 String nome = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
 
-                Cliente pac = new Cliente(id, nome, rg, telefone);
+                Cliente cli = new Cliente(id, rg, nome, telefone);
 
-                return pac;
+                return cli;
 
             }
 
@@ -177,7 +175,7 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
     @Override
     public List<Cliente> listarPorNome(String nome) {
         List<Cliente> listaClientes = new ArrayList<>();
-        String sql = "SELECT * FROM cliente WHERE nome LIKE ?";
+        String sql = "SELECT * FROM CLIENTE WHERE nome LIKE ?";
 
         try {
             conectar(sql);
@@ -186,15 +184,13 @@ public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
-                String nomeX = resultado.getString("nome");
                 String rg = resultado.getString("rg");
-
+                String nomeX = resultado.getString("nome");
                 String telefone = resultado.getString("telefone");
 
-                Cliente pac = new Cliente(id, nomeX, rg, telefone);
+                Cliente pac = new Cliente(id, rg, nomeX, telefone);
 
                 listaClientes.add(pac);
-
             }
 
         } catch (SQLException ex) {

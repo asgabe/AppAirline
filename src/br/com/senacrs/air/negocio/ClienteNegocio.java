@@ -47,7 +47,7 @@ public class ClienteNegocio {
         if (cliente == null) {
             throw new NegocioException("Cliente nao encontrado");
         }
-        return (cliente );
+        return (cliente);
     }
 
     public List<Cliente> listarPorNome(String nome) throws NegocioException {

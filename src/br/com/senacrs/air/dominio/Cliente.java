@@ -8,14 +8,14 @@ public class Cliente {
     private int id;
     private String rg, nome, telefone;
 
-    public Cliente(int id, String nome, String rg, String telefone) {
+    public Cliente(int id, String rg, String nome, String telefone) {
         this.id = id;
         this.rg = rg;
         this.nome = nome;
         this.telefone = telefone;
     }
     
-    public Cliente(String nome, String rg, String telefone) {
+    public Cliente(String rg, String nome, String telefone) {
         this.rg = rg;
         this.nome = nome;
         this.telefone = telefone;
@@ -43,5 +43,9 @@ public class Cliente {
     
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
 }

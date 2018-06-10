@@ -1,4 +1,4 @@
-create table cleinte (
+create table CLIENTE (
 id serial primary key,
 rg varchar(30),
 nome varchar(30),
