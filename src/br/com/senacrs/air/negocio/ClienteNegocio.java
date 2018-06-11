@@ -1,33 +1,33 @@
 package br.com.senacrs.air.negocio;
 
 import br.com.senacrs.air.dominio.Cliente;
-import br.com.senacrs.air.dao.ClienteDao;
-import br.com.senacrs.air.dao.impl_BD.ClienteDaoBd;
+import br.com.senacrs.air.dao.impl_BD.ClienteDAO_BD;
 import java.util.List;
+import br.com.senacrs.air.dao.ClienteDAO;
 
 public class ClienteNegocio {
 
-    private ClienteDao clienteDao;
+    private ClienteDAO clienteDAO;
 
     public ClienteNegocio() {
-        clienteDao = new ClienteDaoBd();
+        clienteDAO = new ClienteDAO_BD();
     }
 
     public void salvar(Cliente c) throws NegocioException {
         this.validarCamposObrigatorios(c);
         this.validarRgExistente(c);
-        clienteDao.salvar(c);
+        clienteDAO.salvar(c);
     }
 
     public List<Cliente> listar() {
-        return (clienteDao.listar());
+        return (clienteDAO.listar());
     }
 
     public void deletar(Cliente cliente) throws NegocioException {
         if (cliente == null || cliente.getRg() == null) {
             throw new NegocioException("Cliente nao existe!");
         }
-        clienteDao.deletar(cliente);
+        clienteDAO.deletar(cliente);
     }
 
     public void atualizar(Cliente cliente) throws NegocioException {
@@ -35,7 +35,7 @@ public class ClienteNegocio {
             throw new NegocioException("Cliente nao existe!");
         }
         this.validarCamposObrigatorios(cliente);
-        clienteDao.atualizar(cliente);
+        clienteDAO.atualizar(cliente);
     }
 
     public Cliente procurarPorRg(String rg) throws NegocioException {
@@ -43,7 +43,7 @@ public class ClienteNegocio {
             throw new NegocioException("Campo RG nao informado");
         }
         
-        Cliente cliente = clienteDao.procurarPorRg(rg);
+        Cliente cliente = clienteDAO.procurarPorRg(rg);
         if (cliente == null) {
             throw new NegocioException("Cliente nao encontrado");
         }
@@ -55,11 +55,11 @@ public class ClienteNegocio {
             throw new NegocioException("Campo nome nao informado");
         }
         
-        return(clienteDao.listarPorNome(nome));
+        return(clienteDAO.listarPorNome(nome));
     }
 
     public boolean clienteExiste(String rg) {
-        Cliente cliente = clienteDao.procurarPorRg(rg);
+        Cliente cliente = clienteDAO.procurarPorRg(rg);
         
         return (cliente != null);
     }

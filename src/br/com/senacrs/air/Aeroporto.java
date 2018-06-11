@@ -1,5 +1,6 @@
 package br.com.senacrs.air;
 
+import br.com.senacrs.air.view.AviaoUI;
 import br.com.senacrs.air.view.ClienteUI;
 import br.com.senacrs.air.view.MainUI;
 
@@ -30,6 +31,7 @@ public class Aeroporto {
 
     public static void main(String[] args) {
         // new MainUI().executar();
-        new ClienteUI().menu();
+//        new ClienteUI().menu();
+        new AviaoUI().menu();
     }
 }

@@ -1,5 +1,6 @@
 package br.com.senacrs.air.model;
 
+import br.com.senacrs.air.dominio.Aviao;
 import java.time.LocalDateTime;
 
 public class Voo implements Comparable<Voo> {

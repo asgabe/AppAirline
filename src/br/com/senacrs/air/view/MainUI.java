@@ -18,7 +18,7 @@ public class MainUI {
 //                    new ClienteUI().executar();
                     break;
                 case MainMenu.OP_AVIOES:
-                    new AviaoUI().executar();
+//                    new AviaoUI().executar();
                     break;
                 case MainMenu.OP_VOOS:
                     new VooUI().executar();

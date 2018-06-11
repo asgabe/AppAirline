@@ -15,7 +15,6 @@ public class ClienteUI {
     public ClienteUI() {
         clienteNegocio = new ClienteNegocio();
     }
-
     
     public void menu() {
         

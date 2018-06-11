@@ -5,9 +5,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import br.com.senacrs.air.dominio.Cliente;
-import br.com.senacrs.air.dao.ClienteDao;
+import br.com.senacrs.air.dao.ClienteDAO;
 
-public class ClienteDaoBd extends DaoBd<Cliente> implements ClienteDao {
+public class ClienteDAO_BD extends DaoBd<Cliente> implements ClienteDAO {
 
     @Override
     public void salvar(Cliente cliente) {
