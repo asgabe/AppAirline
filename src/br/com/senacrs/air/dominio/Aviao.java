@@ -8,6 +8,7 @@ public class Aviao {
     private int qtdAssento;
 
     public Aviao(int id, int codigo, String nome, int qtdAssento) {
+        this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.qtdAssento = qtdAssento;

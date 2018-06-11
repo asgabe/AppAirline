@@ -159,7 +159,7 @@ public class AviaoDAO_BD extends DaoBd<Aviao> implements AviaoDAO {
                 int qtdAssento = resultado.getInt("qtd_assento");
 
                 Aviao avi = new Aviao(id, cod, nome, qtdAssento);
-
+                
                 return avi;
 
             }

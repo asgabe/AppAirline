@@ -36,9 +36,9 @@ public class AviaoUI {
                     case AviaoMenu.OP_ATUALIZAR:
                         UPDATE();
                         break;
-//                    case AviaoMenu.OP_DELETAR:
-//                        DELETE();
-//                        break;
+                    case AviaoMenu.OP_DELETAR:
+                        DELETE();
+                        break;
                     case AviaoMenu.OP_VOLTAR:
                         System.out.println("Retornando ao menu principal..");
                         break;
@@ -113,7 +113,22 @@ public class AviaoUI {
         }
     }
     
-    
+    private void DELETE() {
+        int codigo = Console.scanInt("Codigo do avião a ser deletado: ");
+        try {
+            Aviao avi = aviaoNegocio.procurarPorCodigo(codigo);
+            this.mostrarAvioes(avi);
+            if (UIUtil.getConfirmacao("Realmente deseja excluir esse avião?")) {
+                aviaoNegocio.deletar(avi);
+                System.out.println("Cliente deletado com sucesso!");
+            } else {
+                System.out.println("Operacao cancelada!");
+            }
+        } catch (NegocioException ex) {
+            UIUtil.mostrarErro(ex.getMessage());
+        }
+    }
+     
     private void mostrarAvioes(Aviao a) {
         System.out.println("-----------------------------");
         System.out.println("Cliente");
