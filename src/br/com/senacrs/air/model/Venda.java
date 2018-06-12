@@ -1,5 +1,7 @@
 package br.com.senacrs.air.model;
 
+import br.com.senacrs.air.dominio.Voo;
+import br.com.senacrs.air.model.Cliente;
 import java.time.LocalDate;
 
 public class Venda {

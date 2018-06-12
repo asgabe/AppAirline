@@ -1,6 +1,6 @@
 package br.com.senacrs.air.repositorio;
 
-import br.com.senacrs.air.model.Voo;
+import br.com.senacrs.air.dominio.Voo;
 
 import java.util.List;
 import java.util.ArrayList;
