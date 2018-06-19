@@ -27,7 +27,7 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
             comando.setInt(1, voo.getCodigo());
             comando.setString(2, voo.getOrigem());
             comando.setString(3, voo.getDestino());
-            comando.setObject(4, voo.getAviao());
+            comando.setInt(4, voo.getAviao().getId());
             
             
             Date horario = Date.valueOf(voo.getHorario());
@@ -83,7 +83,7 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
             comando.setInt(1, voo.getCodigo());
             comando.setString(2, voo.getOrigem());
             comando.setString(3, voo.getDestino());
-            comando.setObject(4, voo.getAviao());
+            comando.setInt(4, voo.getAviao().getId());
             
             Date horario = Date.valueOf(voo.getHorario());
             comando.setDate(5, horario);
@@ -114,7 +114,7 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
                 int codigo = resultado.getInt("codigo");
                 String origem = resultado.getString("origem"); 
                 String destino = resultado.getString("destino");
-                Aviao aviao = resultado.getObject("aviao", Aviao aviao);
+                Aviao aviao = (Aviao)resultado.getObject("aviao");
                
                 Date dataSql = resultado.getDate("horario");
                 LocalDate horario = dataSql.toLocalDate();
@@ -146,7 +146,7 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
                 int codigo = resultado.getInt("codigo");
                 String origem = resultado.getString("origem"); 
                 String destino = resultado.getString("destino");
-                String aviao = resultado.getString("aviao");
+                Aviao aviao = (Aviao)resultado.getObject("aviao");
                
                 Date dataSql = resultado.getDate("horario");
                 LocalDate horario = dataSql.toLocalDate();
@@ -181,7 +181,7 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
                 int id = resultado.getInt("id");
                 String origem = resultado.getString("origem"); 
                 String destino = resultado.getString("destino");
-                String aviao = resultado.getString("aviao");
+                Aviao aviao = (Aviao)resultado.getObject("aviao");
                
                 Date dataSql = resultado.getDate("horario");
                 LocalDate horario = dataSql.toLocalDate();
@@ -217,7 +217,7 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
                 int codigo = resultado.getInt("codigo");
                 String origem = resultado.getString("origem"); 
                 String destino = resultado.getString("destino");
-                String aviao = resultado.getString("aviao");
+                Aviao aviao = (Aviao)resultado.getObject("aviao");
                
                 Date dataSql = resultado.getDate("horario");
                 LocalDate horario = dataSql.toLocalDate();
