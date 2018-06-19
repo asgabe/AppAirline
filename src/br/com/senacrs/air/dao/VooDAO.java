@@ -6,7 +6,7 @@ import br.com.senacrs.air.dominio.Voo;
 
 public interface VooDAO extends Dao<Voo>{
     public Voo procurarPorCodigo(int codigo);
-    public List<Voo> listarPorHorarios(String nome);
+    public List<Voo> listarPorDestino(String nome);
     
     
 }

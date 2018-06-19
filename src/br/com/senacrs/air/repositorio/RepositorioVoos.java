@@ -5,7 +5,7 @@ import br.com.senacrs.air.dominio.Voo;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class RepositorioVoos {
 
@@ -25,7 +25,7 @@ public class RepositorioVoos {
         return instance;
     }
 
-    public boolean vooExiste(LocalDateTime horario) {
+    public boolean vooExiste(LocalDate horario) {
         for (Voo hor : listaVoos) {
             if (hor.getHorario().equals(horario)) {
                 return true;
@@ -48,7 +48,7 @@ public class RepositorioVoos {
         return listaVoos;
     }
 
-    public Voo buscarVoo(LocalDateTime horario) {
+    public Voo buscarVoo(LocalDate horario) {
         for (Voo hora : listaVoos) {
             if (hora.getHorario().equals(horario)) {
                 return hora;

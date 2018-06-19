@@ -1,19 +1,20 @@
 package br.com.senacrs.air.dominio;
 
-import br.com.senacrs.air.dominio.Voo;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 public class Voo implements Comparable<Voo> {
 
     private int id;
-    
     private int codigo;
+    
     private String origem;
     private String destino;
     private Aviao aviao;
-    private LocalDateTime horario;
+            
+    private LocalDate horario;
 
-    public Voo(int id, int codigo, String origem, String destino, Aviao aviao, LocalDateTime horario) {
+    public Voo(int id, int codigo, String origem, String destino, Aviao aviao, LocalDate horario) {
         this.id = id;
         this.codigo = codigo;
         this.origem = origem;
@@ -22,7 +23,7 @@ public class Voo implements Comparable<Voo> {
         this.horario = horario;
     }
 
-    public Voo(int codigo, String origem, String destino, Aviao aviao, LocalDateTime horario) {
+    public Voo(int codigo, String origem, String destino, Aviao aviao, LocalDate horario) {
         this.codigo = codigo;
         this.origem = origem;
         this.destino = destino;
@@ -30,7 +31,7 @@ public class Voo implements Comparable<Voo> {
         this.horario = horario;
     }
 
-    public LocalDateTime getHorario() {
+    public LocalDate getHorario() {
         return horario;
     }
 

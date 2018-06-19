@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import br.com.senacrs.air.dominio.Aviao;
 import br.com.senacrs.air.dominio.Voo;
 import br.com.senacrs.air.dao.VooDAO;
 import br.com.senacrs.air.util.DateTimeUtil;
@@ -19,18 +20,18 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
         int id = 0;
 
         try {
-            String sql = "INSERT INTO VOO (codigo, origem, destino, id_aviao, horario) "
+            String sql = "INSERT INTO VOO (codigo, origem, destino, aviao_nome, horario) "
                     + "VALUES (?,?,?,?,?)";
-
-            String horario = DateTimeUtil.dateTimeToString(voo.getHorario());
             
             conectarObtendoId(sql);
             comando.setInt(1, voo.getCodigo());
             comando.setString(2, voo.getOrigem());
             comando.setString(3, voo.getDestino());
-            comando.setInt(4, voo.getAviao().getId());
+            comando.setObject(4, voo.getAviao());
             
-            comando.setString(5, horario);
+            
+            Date horario = Date.valueOf(voo.getHorario());
+            comando.setDate(5, horario);
             
 
             comando.executeUpdate();
@@ -77,14 +78,15 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
             String sql = "UPDATE VOO SET codigo=?, origem=?, destino=?, id_aviao=?, horario=? "
                     + "WHERE id=?";
 
-            String horario = DateTimeUtil.dateTimeToString(voo.getHorario());
             
             conectar(sql);
             comando.setInt(1, voo.getCodigo());
             comando.setString(2, voo.getOrigem());
             comando.setString(3, voo.getDestino());
-            comando.setInt(4, voo.getAviao().getId());
-            comando.setString(5, horario);
+            comando.setObject(4, voo.getAviao());
+            
+            Date horario = Date.valueOf(voo.getHorario());
+            comando.setDate(5, horario);
             
             comando.executeUpdate();
 
@@ -97,10 +99,10 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
     }
 
     @Override
-    public List<Cliente> listar() {
-        List<Cliente> listaClientes = new ArrayList<>();
+    public List<Voo> listar() {
+        List<Voo> listaVoos = new ArrayList<>();
 
-        String sql = "SELECT * FROM CLIENTE";
+        String sql = "SELECT * FROM VOO";
 
         try {
             conectar(sql);
@@ -109,26 +111,30 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
-                String rg = resultado.getString("rg"); 
-                String nome = resultado.getString("nome");
-                String telefone = resultado.getString("telefone");
+                int codigo = resultado.getInt("codigo");
+                String origem = resultado.getString("origem"); 
+                String destino = resultado.getString("destino");
+                Aviao aviao = resultado.getObject("aviao", Aviao aviao);
+               
+                Date dataSql = resultado.getDate("horario");
+                LocalDate horario = dataSql.toLocalDate();
 
-                Cliente cli = new Cliente(id, rg, nome, telefone);
-                listaClientes.add(cli);
+                Voo voo = new Voo(id, codigo, origem, destino, aviao, horario);
+                listaVoos.add(voo);
 
             }
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar os clientes do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar os voos do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
         }
-        return (listaClientes);
+        return (listaVoos);
     }
 
     @Override
-    public Cliente procurarPorId(int id) {
-        String sql = "SELECT * FROM cliente WHERE id = ?";
+    public Voo procurarPorId(int id) {
+        String sql = "SELECT * FROM VOO WHERE id = ?";
 
         try {
             conectar(sql);
@@ -137,18 +143,22 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
-                String nome = resultado.getString("nome");
-                String rg = resultado.getString("rg");
-                String telefone = resultado.getString("telefone");
+                int codigo = resultado.getInt("codigo");
+                String origem = resultado.getString("origem"); 
+                String destino = resultado.getString("destino");
+                String aviao = resultado.getString("aviao");
+               
+                Date dataSql = resultado.getDate("horario");
+                LocalDate horario = dataSql.toLocalDate();
 
-                Cliente pac = new Cliente(id, nome, rg, telefone);
+                Voo voo = new Voo(id, codigo, origem, destino, aviao, horario);
 
-                return pac;
+                return voo;
 
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar o cliente pelo id do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar o voo pelo id do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
@@ -158,28 +168,32 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
     }
 
     @Override
-    public Cliente procurarPorRg(String rg) {
-        String sql = "SELECT * FROM CLIENTE WHERE rg = ?";
+    public Voo procurarPorCodigo(int codigo) {
+        String sql = "SELECT * FROM VOO WHERE codigo = ?";
 
         try {
             conectar(sql);
-            comando.setString(1, rg);
+            comando.setInt(1, codigo);
 
             ResultSet resultado = comando.executeQuery();
 
             if (resultado.next()) {
                 int id = resultado.getInt("id");
-                String nome = resultado.getString("nome");
-                String telefone = resultado.getString("telefone");
+                String origem = resultado.getString("origem"); 
+                String destino = resultado.getString("destino");
+                String aviao = resultado.getString("aviao");
+               
+                Date dataSql = resultado.getDate("horario");
+                LocalDate horario = dataSql.toLocalDate();
 
-                Cliente cli = new Cliente(id, rg, nome, telefone);
+                Voo voo = new Voo(id, codigo, origem, destino, aviao, horario);
 
-                return cli;
+                return voo;
 
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar o cliente pelo rg do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar o voo pelo codigo do Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
@@ -189,9 +203,9 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
     }
 
     @Override
-    public List<Cliente> listarPorNome(String nome) {
-        List<Cliente> listaClientes = new ArrayList<>();
-        String sql = "SELECT * FROM CLIENTE WHERE nome LIKE ?";
+    public List<Voo> listarPorDestino(String nome) {
+        List<Voo> listaVoos = new ArrayList<>();
+        String sql = "SELECT * FROM VOO WHERE nome LIKE ?";
 
         try {
             conectar(sql);
@@ -200,21 +214,25 @@ public class VooDAO_BD extends DaoBd<Voo> implements VooDAO {
 
             while (resultado.next()) {
                 int id = resultado.getInt("id");
-                String rg = resultado.getString("rg");
-                String nomeX = resultado.getString("nome");
-                String telefone = resultado.getString("telefone");
+                int codigo = resultado.getInt("codigo");
+                String origem = resultado.getString("origem"); 
+                String destino = resultado.getString("destino");
+                String aviao = resultado.getString("aviao");
+               
+                Date dataSql = resultado.getDate("horario");
+                LocalDate horario = dataSql.toLocalDate();
 
-                Cliente pac = new Cliente(id, rg, nomeX, telefone);
+                Voo voo = new Voo(id, codigo, origem, destino, aviao, horario);
 
-                listaClientes.add(pac);
+                listaVoos.add(voo);
             }
 
         } catch (SQLException ex) {
-            System.err.println("Erro de Sistema - Problema ao buscar os clientes pelo nome do Banco de Dados!");
+            System.err.println("Erro de Sistema - Problema ao buscar os voos pelo destino no Banco de Dados!");
             throw new BDException(ex);
         } finally {
             fecharConexao();
         }
-        return (listaClientes);
+        return (listaVoos);
     }
 }
